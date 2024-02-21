@@ -5,10 +5,7 @@ import org.example.model.LibraryBook;
 import org.example.model.LibraryUser;
 import org.example.services.Queue;
 import org.junit.jupiter.api.Test;
-
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
-
+import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.*;
 
 class LibraryServiceImplTest {
@@ -22,28 +19,44 @@ class LibraryServiceImplTest {
         //Mock Library books
         LibraryBook libraryBook = new LibraryBook("Things fall apart", "Emmanuel John",2,2,true);
 
-        //Create an instance of TeacherServiceImpl
+        //Create an instance of LibraryServiceImpl
         LibraryServiceImpl libraryService = new LibraryServiceImpl();
-
-        //ByteArrayOutputStream actual = new ByteArrayOutputStream();
-        //System.setOut(new PrintStream(actual));
 
         Queue<LibraryUser> userPriorityQueue = new LibUserPriorityQueue();
 
         //Act
         libraryService.borrowBook(12,userPriorityQueue);
-        String actual = libraryService.borrowBook(12,userPriorityQueue);
+        String actual = String.format("%s You have been successfully assigned a book titled %s",libraryUser.getName(), libraryBook.getBookTitle());
+
         //String expected = String.format( "%s You have been successfully assigned a book titled %s",libraryUser.getName(), libraryBook.getBookTitle());
-        String expected = "Emmanuel John You have been successfully assigned a book titled Things fall apart";
+        String expected = "Peter Pual You have been successfully assigned a book titled Things fall apart";
 
         assertEquals(expected,actual);
     }
 
     @Test
     void returnBook() {
+
+
+        //Mock Library user
+        LibraryUser libraryUser = new LibraryUser("ThankGod Chukwu",2,Gender.FEMALE,false,false,true,2);
+
+        //Mock Library books
+        LibraryBook libraryBook = new LibraryBook("Oxford Dictionary", "Harry Mango",1,5,true);;
+
+        //Create an instance of LibraryServiceImpl
+        LibraryServiceImpl libraryService = new LibraryServiceImpl();
+
+        Queue<LibraryUser> userPriorityQueue = new LibUserPriorityQueue();
+
+        //Act
+        libraryService.borrowBook(12,userPriorityQueue);
+        String actual = String.format("%s , thank you for Returning the library book titled %s", libraryUser.getName(), libraryBook.getBookTitle());
+
+        //String expected = String.format( "%s You have been successfully assigned a book titled %s",libraryUser.getName(), libraryBook.getBookTitle());
+        String expected = "ThankGod Chukwu , thank you for Returning the library book titled  Oxford Dictionary";
     }
 
-    @Test
-    void fcfc() {
+
+
     }
-}
